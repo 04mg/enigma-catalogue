@@ -1,4 +1,5 @@
 import { isRouteErrorResponse, Link, useRouteError } from "react-router-dom"
+import logo from "../assets/logo.png"
 
 export default function ErrorPage() {
     const error = useRouteError()
@@ -7,7 +8,7 @@ export default function ErrorPage() {
     return (
         <div className="flex flex-1 h-screen justify-center place-items-center flex-col gap-5">
             <img
-                src="/images/logo.png"
+                src={logo}
                 alt="Enigma Studio"
                 className="w-32 h-fit"
             />
