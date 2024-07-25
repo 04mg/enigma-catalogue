@@ -4,11 +4,22 @@ import { Product } from "../types"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
 import Title from "../components/Title"
+import { QueryClient } from "@tanstack/react-query"
 
-export async function categoryLoader({ params }: { params: Params }) {
-    const products = await getProducts(params.category!)
-    return { products }
-}
+const productsQuery = (category: string) => ({
+    queryKey: ["products", category],
+    queryFn: async () => getProducts(category)
+})
+
+export const categoryLoader =
+    (queryClient: QueryClient) =>
+    async ({ params }: { params: Params }) => {
+        const query = productsQuery(params.category!)
+        return {
+            products:
+                queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery<Product[]>({ ...query }))
+        }
+    }
 
 export default function Category() {
     const [emblaRef] = useEmblaCarousel(

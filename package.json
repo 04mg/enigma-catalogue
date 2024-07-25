@@ -11,6 +11,7 @@
     "prettier": "prettier --write \"**/*.{js,ts,tsx,css}\""
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.51.11",
     "embla-carousel-autoplay": "^8.1.7",
     "embla-carousel-react": "^8.1.7",
     "pocketbase": "^0.21.3",

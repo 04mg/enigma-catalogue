@@ -8,12 +8,39 @@ import {
 import { Category, PaymentMethod, ShippingMethod } from "../types"
 import Title from "../components/Title"
 import ImageList from "../components/ImageList"
+import { QueryClient } from "@tanstack/react-query"
 
-export async function homeLoader() {
-    const categories = await getCategories()
-    const paymentMethods = await getPaymentMethods()
-    const shippingMethods = await getShippingMethods()
-    return { categories, paymentMethods, shippingMethods }
+const categoriesQuery = {
+    queryKey: ["categories"],
+    queryFn: getCategories
+}
+
+const paymentMethodsQuery = {
+    queryKey: ["paymentMethods"],
+    queryFn: getPaymentMethods
+}
+
+const shippingMethodsQuery = {
+    queryKey: ["shippingMethods"],
+    queryFn: getShippingMethods
+}
+
+export const homeLoader = (queryClient: QueryClient) => async () => {
+    return {
+        categories:
+            queryClient.getQueryData(categoriesQuery.queryKey) ??
+            (await queryClient.fetchQuery<Category[]>({ ...categoriesQuery })),
+        paymentMethods:
+            queryClient.getQueryData(paymentMethodsQuery.queryKey) ??
+            (await queryClient.fetchQuery<PaymentMethod[]>({
+                ...paymentMethodsQuery
+            })),
+        shippingMethods:
+            queryClient.getQueryData(shippingMethodsQuery.queryKey) ??
+            (await queryClient.fetchQuery<ShippingMethod[]>({
+                ...shippingMethodsQuery
+            }))
+    }
 }
 
 export default function Home() {

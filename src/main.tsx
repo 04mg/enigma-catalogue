@@ -6,22 +6,29 @@ import "./index.css"
 import ErrorPage from "./routes/error"
 import Root from "./routes/root"
 import Category, { categoryLoader } from "./routes/category"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root />,
+        element: (
+            <QueryClientProvider client={queryClient}>
+                <Root />
+            </QueryClientProvider>
+        ),
         errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
                 element: <Home />,
-                loader: homeLoader
+                loader: homeLoader(queryClient)
             },
             {
                 path: "category/:category",
                 element: <Category />,
-                loader: categoryLoader
+                loader: categoryLoader(queryClient)
             }
         ]
     }
