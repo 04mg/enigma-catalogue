@@ -4,10 +4,9 @@ import { Link } from "react-router-dom"
 
 interface NavBarProps {
     instagramUrl: string
-    whatsappUrl: string
 }
 
-export default function NavBar({ instagramUrl, whatsappUrl }: NavBarProps) {
+export default function NavBar({ instagramUrl }: NavBarProps) {
     return (
         <header className="flex place-items-center flex-1 p-4 px-8 justify-between">
             <Link to="/">
@@ -24,13 +23,6 @@ export default function NavBar({ instagramUrl, whatsappUrl }: NavBarProps) {
                     className="hover:scale-125 active:scale-125 duration-100"
                 >
                     <LogoInstagram color="black" height="100%" width="100%" />
-                </a>
-                <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    className="hover:scale-125 active:scale-125 duration-100"
-                >
-                    <LogoWhatsapp color="black" height="100%" width="100%" />
                 </a>
             </div>
         </header>
