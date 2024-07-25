@@ -5,7 +5,7 @@ export interface Category {
 
 export interface Product {
     name: string
-    image: string
+    images: string[]
 }
 
 export interface PaymentMethod {

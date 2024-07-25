@@ -21,7 +21,9 @@ export const getProducts = async (category: string): Promise<Product[]> => {
     return records.map((record) => {
         return {
             name: record.name,
-            image: pb.files.getUrl(record, record.image)
+            images: record.images.map((image: string) =>
+                pb.files.getUrl(record, image)
+            )
         }
     })
 }
