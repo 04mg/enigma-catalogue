@@ -6,7 +6,6 @@ export default function Root() {
         <>
             <NavBar
                 instagramUrl="https://instagram.com/enigma_uru"
-                whatsappUrl=""
             />
             <Outlet />
         </>
